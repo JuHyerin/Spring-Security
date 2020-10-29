@@ -4,8 +4,6 @@ description: 'AuthenticationManager, ProviderManager, AuthenticationProvider'
 
 # AuthenticationManager
 
-#### AuthenticationManager, ProviderManager, AuthenticationProvider <a id="h-tag-6"></a>
-
 * **AuthenticationManager \(Interface\)**
 
 authenticate\(Authentication\):Authentication → Authentication 객체를 받아 인증하고 인증되었다면 인증된 Authentication 객체를 돌려주는 메서드를 구현하도록 하는 인터페이스다.
