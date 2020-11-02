@@ -1,4 +1,4 @@
-# DelegatingFilterProxy
+# FilterChainProxy
 
 ## FilterChainProxy 생성과정 
 
@@ -42,6 +42,11 @@ ApplicationFilter들을 거치다가 **DelegatingFilterProxyRegistrationBean**�
 
 {% hint style="info" %}
 FilterChainProxy 생성-호출:  
+
+
+`FilterChainProxy`는 Request마다 원하는 Filter Set을 URI를 보고 셋팅해주고, 실제로는 `WebSecurityConfigurerAdapter` configure에서 Filter Set을 등록하게 된다.
+
+  
 [https://kangwoojin.github.io/programing/spring-security-basic-filter-chain-proxy/](https://kangwoojin.github.io/programing/spring-security-basic-filter-chain-proxy/)
 {% endhint %}
 
