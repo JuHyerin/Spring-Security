@@ -4,6 +4,8 @@ description: 'SecurityContext 객체의 생성, 저장, 조회'
 
 # SecurityContext
 
+![](.gitbook/assets/image%20%284%29.png)
+
 
 
 * 익명사용자

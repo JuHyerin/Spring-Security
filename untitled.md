@@ -27,25 +27,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception
     {
         // static 디렉터리의 하위 파일 목록은 인증 무시 ( = 항상통과 )
+        //굳이 인증 필요하지 않음, 설정안할 경우 전부 인증 검사
         web.ignoring().antMatchers("/css/**", "/js/**", "/img/**", "/lib/**");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.authorizeRequests() //요청에 대한 권한을 지정할 수 있
                 // 페이지 권한 설정
                 .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/sdf/**").authenticated() //로그인이 된 사람은 다 접근 가능(role 상관없음)
                 .antMatchers("/user/myinfo").hasRole("MEMBER")
-                .antMatchers("/**").permitAll()
+                .antMatchers("/**").permitAll()  //순서 중
+                .anyRequest().permitAll()
             .and() // 로그인 설정
                 .formLogin()
+                //.httpBasic()
                 .loginPage("/user/login") // 로그인 페이지를 제공하는 URL을 설정
                 .defaultSuccessUrl("/user/login/result") 
                 // 로그인 성공 URL을 설정함
                 //.successForwardUrl("/index")
                 // 로그인 실패 URL을 설정함
                 //.failureForwardUrl("/index")
-                .permitAll()
+                .successfulHandler()
             .and() // 로그아웃 설정
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
@@ -56,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedPage("/user/denied");
     }
 
-    @Override
+    @Override //커스텀 경우     
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
     }
